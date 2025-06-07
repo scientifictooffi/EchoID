@@ -40,7 +40,7 @@ EchoID/
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/EchoID.git
+git clone https://github.com/scientifictooffi/EchoID.git
 cd EchoID
 ```
 
