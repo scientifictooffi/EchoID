@@ -9,7 +9,6 @@ const LINKING_ERROR =
   "- You are not using Expo Go\n" +
   "- You are using a development build with custom native modules";
 
-// Check if the native module is available
 const isNativeModuleAvailable = () => {
   try {
     return NativeModules.PolygonIdNative != null;
@@ -18,7 +17,6 @@ const isNativeModuleAvailable = () => {
   }
 };
 
-// Only create the proxy if we're trying to access the module and it's not available
 const createProxy = () => {
   return new Proxy(
     {},
@@ -30,7 +28,6 @@ const createProxy = () => {
   );
 };
 
-// Don't throw error immediately, only when methods are called
 const PolygonIdNative = isNativeModuleAvailable()
   ? NativeModules.PolygonIdNative
   : null;
@@ -173,10 +170,8 @@ class PolygonIdSDK {
     }
   }
 
-  // Utility method to check if native module is available
   static isAvailable(): boolean {
     return isNativeModuleAvailable();
   }
 }
-// Only export the SDK if native module is available
 export default isNativeModuleAvailable() ? new PolygonIdSDK() : createProxy();

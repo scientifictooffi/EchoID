@@ -27,8 +27,6 @@ const PROOF_OPTIONS = [
         type: "KYCAgeCredential",
         context:
           "https://raw.githubusercontent.com/iden3/protocols/master/polygonid/examples/ageCredential/schema.json-ld",
-        // You could also add numeric conditions here if desired,
-        // e.g. credentialSubject: { birthDate: { lt: 20060101 } }
       },
     },
   },
@@ -149,7 +147,6 @@ function App() {
       }
 
       setRequestWithScope(request);
-      // Reset verification state when new proof is selected
       setVerificationStatus("idle");
       setShowNotification(false);
       setCallbackResponse(null);
@@ -157,7 +154,6 @@ function App() {
     }
   }, [selectedProof, baseRequest]);
 
-  // Fetch the initial auth request
   useEffect(() => {
     async function fetchAuth() {
       try {
@@ -181,7 +177,6 @@ function App() {
     fetchAuth();
   }, []);
 
-  // Log modal state changes
   useEffect(() => {
     console.log("Modal visibility changed:", {
       showNotification,

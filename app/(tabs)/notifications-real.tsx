@@ -19,7 +19,6 @@ export default function NotificationsRealScreen() {
     const request = verificationRequests.find(req => req.id === requestId);
     if (!request) return;
     
-    // Show ZK proof generator for real proof generation
     setShowProofGenerator(requestId);
   };
   

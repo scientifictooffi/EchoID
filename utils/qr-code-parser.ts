@@ -30,20 +30,17 @@ export interface PolygonIdQRData {
 export class QRCodeParser {
   static parsePolygonIdQR(qrData: string): VerificationRequest {
     try {
-      // Handle URL format QR codes (common in Polygon ID demos)
+      // Handle URL format QR codes
       if (qrData.startsWith('http')) {
         return this.parseUrlQR(qrData);
       }
       
-      // Handle JSON format QR codes
       const parsed: PolygonIdQRData = JSON.parse(qrData);
       
-      // Validate required fields
       if (!parsed.body || !parsed.body.callbackUrl) {
         throw new Error('Invalid Polygon ID QR code: missing callback URL');
       }
       
-      // Validate type field for authorization requests
       if (!parsed.type || !this.isValidAuthorizationType(parsed.type)) {
         throw new Error('Invalid Polygon ID QR code: not an authorization request');
       }
@@ -59,7 +56,6 @@ export class QRCodeParser {
         requiredFields: ['identity'],
       }];
       
-      // Generate unique request ID
       const requestId = `req-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
       
       return {
@@ -87,7 +83,6 @@ export class QRCodeParser {
     try {
       const urlObj = new URL(url);
       
-      // Check if it's a valid Polygon ID URL
       if (!url.includes('iden3-communication.io') && 
           !url.includes('authorization') && 
           !url.includes('polygon')) {

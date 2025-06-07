@@ -26,7 +26,7 @@ export default function CredentialDetailScreen() {
     return null;
   }
   
-  // Get the main credential type (excluding the VerifiableCredential base type)
+  // Get the main credential type
   const mainType = credential.type.find(type => type !== 'VerifiableCredential') || 'Unknown Credential';
   
   // Format date to be more readable
@@ -40,14 +40,12 @@ export default function CredentialDetailScreen() {
     });
   };
   
-  // Check if credential is expired
   const isExpired = () => {
     if (!credential.expirationDate) return false;
     return new Date(credential.expirationDate) < new Date();
   };
   
   const handleShare = () => {
-    // In a real app, this would share the credential
     Alert.alert('Share Credential', 'Sharing functionality would be implemented here.');
   };
   

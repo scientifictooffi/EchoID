@@ -20,7 +20,6 @@ export default function ScanScreen() {
   const [scanResult, setScanResult] = useState<'success' | 'error' | null>(null);
   const { processQRCode, isLoading } = polygonIdStore();
   
-  // Debouncing refs
   const lastScanTime = useRef<number>(0);
   const scanTimeout = useRef<NodeJS.Timeout | null>(null);
   
@@ -85,7 +84,7 @@ export default function ScanScreen() {
         setScanResult('error');
         Alert.alert(
           'Invalid QR Code',
-          'This QR code is not a valid Polygon ID verification request. Please scan a QR code from a Polygon ID verifier.',
+          'This QR code is not a valid EchoID ID verification request. Please scan a QR code from a EchoID ID verifier.',
           [
             {
               text: 'Try Again',
@@ -108,7 +107,6 @@ export default function ScanScreen() {
             text: 'View Request',
             onPress: () => {
               resetScan();
-              // Navigate to notifications tab would go here
             },
           },
           {
@@ -122,7 +120,6 @@ export default function ScanScreen() {
       console.error('Failed to process QR code:', error);
       setScanResult('error');
       
-      // Check if it's a network/parsing error vs invalid format
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       
       if (errorMessage.includes('Invalid') || errorMessage.includes('format')) {
@@ -141,7 +138,6 @@ export default function ScanScreen() {
     } finally {
       setProcessing(false);
       
-      // Auto-reset after 3 seconds if no user action
       scanTimeout.current = setTimeout(() => {
         resetScan();
       }, 3000);

@@ -75,7 +75,6 @@ export default function SettingsScreen() {
           text: "Delete",
           style: "destructive",
           onPress: () => {
-            // In a real app, this would delete the identity
             polygonIdStore.setState({
               identity: null,
               isInitialized: false,

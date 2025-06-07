@@ -75,7 +75,6 @@ export const mockCredentials: Credential[] = [
   }
 ];
 
-// Generate unique IDs for mock verification requests with proper timestamps
 const generateUniqueId = () => `req-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 const generateSessionId = () => `session-${Date.now()}-${Math.random().toString(36).substr(2, 6)}`;
 

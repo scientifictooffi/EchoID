@@ -130,10 +130,6 @@ const polygonIdStoreReal = create<PolygonIdState>()(
         set({ isLoading: true });
         
         try {
-          // In a real implementation, this would update profile metadata
-          // using the PolygonID SDK
-          
-          // Simulate network delay
           await new Promise(resolve => setTimeout(resolve, 800));
           
           const updatedIdentity = {
@@ -165,7 +161,6 @@ const polygonIdStoreReal = create<PolygonIdState>()(
           }
           
           if (approve) {
-            // Generate real ZK proof
             const proofResult = await PolygonIdService.generateZKProof(request);
             
             console.log('Generated ZK Proof:', {
@@ -173,8 +168,6 @@ const polygonIdStoreReal = create<PolygonIdState>()(
               proof: proofResult.proof,
               publicSignals: proofResult.publicSignals,
             });
-            
-            // If there's a callback URL, the proof is automatically sent by the SDK
             if (request.callbackUrl) {
               console.log('Proof sent to callback URL:', request.callbackUrl);
             }
@@ -197,7 +190,6 @@ const polygonIdStoreReal = create<PolygonIdState>()(
         }
       },
 
-      // Additional methods for real SDK integration
       processQRCode: async (qrCodeData: string) => {
         set({ isLoading: true });
         
@@ -264,7 +256,6 @@ const polygonIdStoreReal = create<PolygonIdState>()(
     {
       name: 'polygon-id-real-storage',
       storage: createJSONStorage(() => AsyncStorage),
-      // Don't persist verification requests as they should be fresh
       partialize: (state) => ({
         identity: state.identity,
         isInitialized: state.isInitialized,
@@ -273,10 +264,7 @@ const polygonIdStoreReal = create<PolygonIdState>()(
   )
 );
 
-// Initialize SDK when store is created
 PolygonIdService.initialize().catch(console.error);
-
-// Set up event listeners if native SDK is available
 if (Platform.OS !== 'web') {
   PolygonIdService.onVerificationRequest((request) => {
     const { verificationRequests } = polygonIdStoreReal.getState();
